@@ -21,7 +21,7 @@ import kotlin.reflect.KProperty
 /**
  * Created by shashank@fueled.com on 03/05/20.
  */
-class SlideColorPicker @JvmOverloads constructor(
+class  SlideColorPicker @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -69,6 +69,9 @@ class SlideColorPicker @JvmOverloads constructor(
 
     private val lowerBound: Float
         get() = centerY + expandedHeight - radius
+
+    private val circlePadding: Float
+        get() = originalRadius * 0.2F
 
     private val animator: ValueAnimator by lazy {
         ValueAnimator.ofFloat().apply {
@@ -177,7 +180,7 @@ class SlideColorPicker @JvmOverloads constructor(
         val (startHeight, endHeight) = if (action == TouchAction.UP) {
             expandedHeight to originalRadius
         } else {
-            originalRadius to expandedHeight
+            originalRadius+circlePadding to expandedHeight+circlePadding
         }
         halfRectHeight = lerp(startHeight, endHeight, animatorValue)
     }
