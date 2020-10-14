@@ -70,6 +70,9 @@ class SlideColorPicker @JvmOverloads constructor(
     private val lowerBound: Float
         get() = centerY + expandedHeight - radius
 
+    private val circlePadding: Float
+        get() = originalRadius * 0.2F
+
     private val animator: ValueAnimator by lazy {
         ValueAnimator.ofFloat().apply {
             setFloatValues(0F, 1F)
@@ -177,7 +180,7 @@ class SlideColorPicker @JvmOverloads constructor(
         val (startHeight, endHeight) = if (action == TouchAction.UP) {
             expandedHeight to originalRadius
         } else {
-            originalRadius to expandedHeight
+            originalRadius + circlePadding to expandedHeight + circlePadding
         }
         halfRectHeight = lerp(startHeight, endHeight, animatorValue)
     }
